@@ -49,7 +49,7 @@ def get_max(layers):
 	#returns the lowest end date for the layers
 	maximum = 'NAN'
 	for x in layers:
-		if maximum == 'NAN' or files[x][0] < maximum:
+		if maximum == 'NAN' or files[x][1] < maximum:
 			maximum = files[x][1] 
 	return maximum
 	
@@ -58,9 +58,10 @@ def make_array(layers, minimum, maximum):
 	#minimum = start year
 	#maximum = end year
 	#return = 2D array of combined layers
-	title = ['Name'] + list(range(minimum, maximum + 1))
+	title = ['Name'] + list(range(minimum, maximum+1))
 	length = maximum - minimum
 	toReturn = [title]
+	print(toReturn)
 	fileNames = []
 	for x in layers:
 		name = files[x][2]
@@ -93,7 +94,7 @@ def make_array(layers, minimum, maximum):
 			for row in csvreader:
 				data = row[0].split(',')
 				if len(data) > 1 and toReturn[index][0] != "NAN":
-					for num in range(1, length + 2):
+					for num in range(1, len(toReturn[index])):
 						toReturn[index][num] = float(toReturn[index][num]) + float(data[num + mini])
 				else:
 					toReturn[index] = ["NAN"]
