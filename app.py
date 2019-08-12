@@ -78,6 +78,8 @@ def make_array(layers, minimum, maximum):
 			to_add = [to_add[0]] + to_add[mini:maxi+1]
 			if len(to_add) > 1:
 				toReturn.append(to_add)	
+			else:
+				toReturn.append(["NAN"])
 	fileNames.pop(0)
 	for x in fileNames:
 		with open(x, 'r') as csvfile: 
@@ -90,10 +92,12 @@ def make_array(layers, minimum, maximum):
 			mini = i - 1
 			for row in csvreader:
 				data = row[0].split(',')
-				if len(data) > 1:
+				if len(data) > 1 and toReturn[index][0] != "NAN":
 					for num in range(1, length + 2):
 						toReturn[index][num] = float(toReturn[index][num]) + float(data[num + mini])
-					index = index + 1
+				else:
+					toReturn[index] = ["NAN"]
+				index = index + 1
 	return toReturn
 	
 def get_average(file, fileNum):
