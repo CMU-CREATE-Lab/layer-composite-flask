@@ -79,7 +79,6 @@ def make_array(layers, minimum, maximum):
 			if len(to_add) > 1:
 				toReturn.append(to_add)	
 			else:
-				print(to_add)
 				toReturn.append(["NAN"])
 	fileNames.pop(0)
 	for x in fileNames:
@@ -97,7 +96,6 @@ def make_array(layers, minimum, maximum):
 					for num in range(1, len(toReturn[index])):
 						toReturn[index][num] = float(toReturn[index][num]) + float(data[num + mini])
 				else:
-					print(data)
 					toReturn[index] = ["NAN"]
 				index = index + 1
 	return toReturn
