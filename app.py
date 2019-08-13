@@ -160,7 +160,7 @@ def api_getave():
 
 
 @app.route('/getdates')
-def api_getdates:
+def api_getdates():
 	layers = request.args['files'].split(',')
 	minimum = get_min(layers)
 	maximum = get_max(layers)
