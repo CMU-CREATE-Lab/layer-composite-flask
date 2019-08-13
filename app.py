@@ -166,8 +166,7 @@ def api_getdates():
 		msg = {"status":400, "message":"Malformed Request, bad date range: " + request.url}
 	else:
 		msg = {"status":200, "message":"Correct date range"}
-	print(msg)
-	return msg
+	return error_resp(msg)
 	
 if __name__ == "__main__":
 	app.run()
