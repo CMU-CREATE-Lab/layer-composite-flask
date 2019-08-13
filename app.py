@@ -61,7 +61,6 @@ def make_array(layers, minimum, maximum):
 	title = ['Name'] + list(range(minimum, maximum+1))
 	length = maximum - minimum
 	toReturn = [title]
-	print(toReturn)
 	fileNames = []
 	for x in layers:
 		name = files[x][2]
@@ -80,6 +79,7 @@ def make_array(layers, minimum, maximum):
 			if len(to_add) > 1:
 				toReturn.append(to_add)	
 			else:
+				print(to_add)
 				toReturn.append(["NAN"])
 	fileNames.pop(0)
 	for x in fileNames:
@@ -97,6 +97,7 @@ def make_array(layers, minimum, maximum):
 					for num in range(1, len(toReturn[index])):
 						toReturn[index][num] = float(toReturn[index][num]) + float(data[num + mini])
 				else:
+					print(data)
 					toReturn[index] = ["NAN"]
 				index = index + 1
 	return toReturn
@@ -104,7 +105,9 @@ def make_array(layers, minimum, maximum):
 def get_average(file, fileNum):
 	for row in range(1, len(file)):
 		for col in range(1, len(file[row])):
-			file[row][col] = float(file[row][col]) / fileNum
+			if file[row][col] != "NAN":
+				print(file[row])
+				file[row][col] = float(file[row][col]) / fileNum
 	return file
 	
 @app.route('/')
@@ -155,6 +158,16 @@ def api_getave():
 	output = make_response(dest.getvalue())
 	return output
 
+
+@app.route('/getdates')
+def api_getdates:
+	layers = request.args['files'].split(',')
+	minimum = get_min(layers)
+	maximum = get_max(layers)
+	if minimum > maximum:
+		msg = {"status":400, "message":"Malformed Request, bad date range: " + request.url}
+	else:
+		msg = {"status":200, "message":"Correct date range"}
 	
 if __name__ == "__main__":
 	app.run()
