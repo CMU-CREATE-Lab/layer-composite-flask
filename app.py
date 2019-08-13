@@ -163,10 +163,10 @@ def api_getdates():
 	minimum = get_min(layers)
 	maximum = get_max(layers)
 	if minimum > maximum:
-		msg = {"status":200, "message":"Malformed Request, bad date range"}
+		msg = {"message":"Malformed Request, bad date range"}
 	else:
-		msg = {"status":200, "message":"Correct date range"}
-	return error_resp(msg)
+		msg = {"message":"Correct date range"}
+	return jsonify(msg)
 	
 if __name__ == "__main__":
 	app.run()
